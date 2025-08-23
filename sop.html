@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Personal Health Status Analyzer</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9fafc;
+      color: #333;
+    }
+
+    /* Navbar */
+    nav {
+      background: #1e40af;
+      padding: 15px 40px;
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+    nav h1 {
+      color: white;
+      font-size: 22px;
+      margin: 0;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    nav ul li {
+      margin-left: 25px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #93c5fd;
+    }
+
+    /* Section Container */
+    .section {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 30px;
+    }
+
+    .section h2 {
+      text-align: center;
+      font-size: 26px;
+      margin-bottom: 20px;
+      color: #1e3a8a;
+    }
+
+    /* Health Form Card */
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    label {
+      font-weight: 600;
+      margin-top: 15px;
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border 0.3s ease;
+    }
+
+    input:focus, select:focus {
+      border: 1px solid #1e40af;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 14px;
+      width: 100%;
+      background: #1e40af;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    /* Results Section */
+    .result {
+      margin-top: 25px;
+      padding: 20px;
+      background: #eff6ff;
+      border-left: 6px solid #1e40af;
+      border-radius: 8px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .result h3 {
+      margin-top: 0;
+      color: #1e40af;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 60px;
+      padding: 20px;
+      text-align: center;
+      background: #f1f5f9;
+      color: #555;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <h1>Health Analyzer</h1>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#analyzer">Health Check</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="section" id="home">
+    <div class="card" style="text-align:center">
+      <h2>Welcome to Personal Health Status Analyzer</h2>
+      <p>
+        Empowering individuals with simple, preventive health insights.  
+        Enter your details to check your wellness and receive personalized lifestyle recommendations.
+      </p>
+      <a href="#analyzer"><button>Start Health Check</button></a>
+    </div>
+  </section>
+
+  <!-- Analyzer Form Section -->
+  <section class="section" id="analyzer">
+    <h2>Health Check Form</h2>
+    <div class="card">
+      <label>Age:</label>
+      <input type="number" id="age" placeholder="Enter your age">
+
+      <label>Gender:</label>
+      <select id="gender">
+        <option>Male</option>
+        <option>Female</option>
+      </select>
+
+      <label>Height (cm):</label>
+      <input type="number" id="height" placeholder="Enter height in cm">
+
+      <label>Weight (kg):</label>
+      <input type="number" id="weight" placeholder="Enter weight in kg">
+
+      <label>Sleep Hours per Day:</label>
+      <input type="number" id="sleep" placeholder="Enter average sleep hours">
+
+      <label>Activity Level:</label>
+      <select id="activity">
+        <option value="low">Low</option>
+        <option value="moderate">Moderate</option>
+        <option value="high">High</option>
+      </select>
+
+      <button onclick="analyze()">Analyze My Health</button>
+
+      <div class="result" id="result"></div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section" id="about">
+    <h2>About This Project</h2>
+    <div class="card">
+      <p>
+        The <strong>Personal Health Status Analyzer</strong> is designed as a <em>social impact project</em> 
+        to help people identify preventive health risks using simple parameters like BMI, lifestyle, and sleep.
+      </p>
+      <p>
+        This tool provides <strong>personalized nutrition and fitness recommendations</strong>, 
+        aiming to improve wellness accessibility for underserved populations.
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Personal Health Analyzer | Built for Social Impact
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    function analyze() {
+      let age = document.getElementById("age").value;
+      let height = document.getElementById("height").value / 100; // convert cm to m
+      let weight = document.getElementById("weight").value;
+      let sleep = document.getElementById("sleep").value;
+      let activity = document.getElementById("activity").value;
+
+      if (!age || !height || !weight || !sleep) {
+        document.getElementById("result").innerHTML = "<p style='color:red'>⚠️ Please fill all fields before submitting.</p>";
+        return;
+      }
+
+      let bmi = (weight / (height * height)).toFixed(1);
+      let category = "";
+      let recommendation = "";
+
+      if (bmi < 18.5) {
+        category = "Underweight";
+        recommendation = "Increase calories with balanced meals. Add protein and whole grains.";
+      } else if (bmi < 25) {
+        category = "Normal";
+        recommendation = "Maintain your lifestyle with regular activity and a balanced diet.";
+      } else if (bmi < 30) {
+        category = "Overweight";
+        recommendation = "Control portions, reduce sugar, and exercise regularly.";
+      } else {
+        category = "Obese";
+        recommendation = "High risk: consult a doctor, start with a low-carb diet, and light daily activity.";
+      }
+
+      if (sleep < 6) {
+        recommendation += " Aim for at least 7–8 hours of quality sleep.";
+      }
+      if (activity === "low") {
+        recommendation += " Add 30 minutes of walking or light exercise daily.";
+      }
+
+      document.getElementById("result").innerHTML = `
+        <h3>Your Health Report</h3>
+        <p><strong>BMI:</strong> ${bmi} (${category})</p>
+        <p><strong>Recommendations:</strong> ${recommendation}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
