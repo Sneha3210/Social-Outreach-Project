@@ -64,7 +64,7 @@ To run this project:
 1. Clone this repository.  
 2. Open the `index.html` file in your browser.  
 
-git clone  https://sneha3210.github.io/Social-Outreach-Project/.git
+git clone  https://sneha3210.github.io/Social-Outreach-Project.git
 cd personal-health-analyzer
 start index.html
 
